@@ -1,0 +1,65 @@
+.modalBackground{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-color: rgba(128, 128, 128, 0.507);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.modalWindow{
+    position: relative;
+    background-color: #fff;
+    padding: 25px 50px;
+    border: 1px solid #D18A3A;
+    border-radius: 1.5rem;
+    width: 50vw;
+    height: min-content;
+    text-align: center;
+}
+
+.closeBtn{
+    width: 50px;
+    padding: 5px;
+    background: rgb(161, 6, 6);
+    border-radius: 1em;
+    border: 2px solid black;
+    color: white;
+    font-weight: 500;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.callbackForm div{
+    margin-top: 10px;
+}
+
+.callbackForm div input{
+    font-size: 18px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 7px;
+    margin-left: 10px;
+}
+
+.callbackForm div button{
+    height: 28px;
+    border-radius: 10px;
+    padding: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    cursor: pointer;
+    border: none;
+}
+
+.callbackForm div button:hover{
+    background-color: yellow;
+}

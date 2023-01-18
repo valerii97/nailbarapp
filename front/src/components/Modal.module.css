@@ -1,0 +1,177 @@
+.modalBackground{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-color: rgba(128, 128, 128, 0.507);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+}
+
+.modalContainer{
+    position: relative;
+    background-color: #fff;
+    padding: 25px 50px;
+    border: 1px solid #D18A3A;
+    border-radius: 1.5rem;
+    width: 50vw;
+    height: min-content;
+    text-align: center;
+}
+
+.closeBtn{
+    width: 50px;
+    padding: 5px;
+    background: rgb(161, 6, 6);
+    border-radius: 1em;
+    border: 2px solid black;
+    color: white;
+    font-weight: 500;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.datePick{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dateTimeInput{
+    opacity: 0;
+    width: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.dateTimeSpan{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+    font-size: 15px;
+    background-color: rgba(106, 106, 178, 0.827);
+    color: white;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.pickedDateTime{
+    /* display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+    font-size: 15px;
+    color: white;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 8px; */
+    background-color: rgb(0, 19, 112);
+}
+
+.formHolder form div{
+    margin-top: 10px;
+}
+
+.formHolder form div input{
+    width: 50%;
+    border: 1px solid #ECE9E4;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.formHolder form div label{
+    font-size: 15px;
+    margin-right: 7px;
+}
+
+.formHolder form div input:focus{
+    border: 2px solid rgb(65, 65, 220);
+}
+
+.formHolder form div input[type=submit]{
+    width: min-content;
+    cursor: pointer;
+}
+
+.datesControlBtnsHolder{
+    position: relative;
+}
+
+.cntrlBtnLeft,
+.cntrlBtnRight{
+    position: absolute;
+    top: -20px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(7, 68, 121);
+}
+
+.cntrlBtnLeft{
+    left: 40px;
+}
+
+.cntrlBtnRight{
+    right: 40px;
+}
+
+@media screen and (max-width: 782px) {
+    .modalContainer{
+        width: 70vw;
+    }
+    
+}
+
+@media screen and (max-width: 500px){
+
+    .modalContainer{
+        width: 100vw;
+    }
+    .closeBtn{
+        top: 10px;
+        right: 20px;
+    }
+
+    .datePick{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 20px;
+    }
+
+    .formHolder form div label{
+        font-size: 13px;
+        margin-right: 0px;
+        margin-top: 0;
+    }
+
+    .formHolder form div input{
+        width: 50vw;
+    }
+
+    .cntrlBtnLeft,
+    .cntrlBtnRight{
+        top: -12px;
+    }
+
+    .cntrlBtnLeft{
+        left: 0px;
+    }
+
+    .cntrlBtnRight{
+        right: 0px;
+    }
+}

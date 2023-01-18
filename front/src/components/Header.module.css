@@ -1,0 +1,183 @@
+.general{
+    grid-area: header;
+    background-color: #D18A3A;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    color: white;
+}
+
+.active{
+    grid-area: header;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #d6ab7eea;
+    z-index: 990;
+    color: white;
+}
+
+.logoholder{
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.logoimg{
+    margin-right: 20px;
+    height: 90px;
+    border-radius: 15px;
+}
+
+.logoname{
+    padding: 5px;
+    font-family: 'Raleway';
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+}
+
+.contacts{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contacts > a,
+.contacts > div{
+    margin: 5px 20px;
+    color: white;
+}
+
+.phone{
+    position: relative;
+    text-align: center;
+}
+
+.phone > div{
+    padding: 5px;
+    
+}
+
+.phone > div > button{
+    font-family: 'Be Vietnam Pro';
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #D6AB7E;
+    padding: 7px;
+    border-radius: 10px;
+    transition: background-color 0.3s linear;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.phone > div > button:hover{
+    background-color: #C3B39C;
+    font-family: 'Be Vietnam Pro';
+}
+
+.phoneinside{
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.facebooklink{
+    margin-right: 10px;
+}
+.facebooklink,
+.instalink,
+.appointmentlink{
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.appointmentlink{
+    position: relative;
+}
+
+.appointmenticon{
+    position: absolute;
+    left: -2px;
+    top: 1px;
+}
+
+.forScheduleCreation{
+    display: none;
+}
+
+.burgericon{
+    display: none;
+}
+
+
+@media screen and (max-width: 782px) {
+    .general,
+    .active{
+        display: block;
+        z-index: 999;
+    }
+
+    .burgericon{
+        display: inline;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+
+    .logoholder{
+        justify-content: left;
+    }
+
+    .logoname{
+        font-size: 20px;
+    }
+
+    .logoimg{
+        margin-right: 10px;
+        margin-left: 5px;
+        width: 35px;
+        height: 50px;
+    }
+
+    .contacts{
+        display: none;
+        text-align: center;
+    }
+    
+}
+
+@media screen and (max-width: 500px) {
+
+    .logoname{
+        font-size: 20px;
+    }
+
+    .logoimg{
+        margin-right: 10px;
+        margin-left: 5px;
+        width: 35px;
+        height: 50px;
+    }
+
+    .contacts{
+        display: none;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+}
