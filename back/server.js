@@ -4,6 +4,7 @@ mongoose.set("strictQuery", false);
 const bp = require("body-parser");
 const dotenv = require("dotenv");
 
+// res router
 const reservationRouter = require("./routes/reservationRouter");
 
 //CREATE EXPRESS APP
