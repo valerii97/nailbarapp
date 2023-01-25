@@ -7,6 +7,14 @@ const Prices = new mongoose.Schema({
   },
   price: { required: true, type: Number },
   additional: { type: Boolean },
+  description: {
+    required: true,
+    type: String,
+  },
+  image: {
+    required: true,
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Prices", Prices);

@@ -3,57 +3,23 @@ import { useState, useEffect } from "react";
 import s from "./Content.module.css";
 import location from "./location.jpg";
 import OpenModalBtn from "./OpenModalBtn";
-import testimg from "./gallery/01.jpg";
-import { AiOutlineDown } from "react-icons/ai";
+import Review from "./Review";
 
 const Content = (props) => {
-  // GET ALL IMAGES
-  const importAllImages = (r) => {
-    let imgs = [];
-    r.keys().map((item, index) => {
-      return imgs.push(r(item));
-    });
-
-    return imgs;
-  };
-
-  const images = importAllImages(
-    require.context("./gallery", false, /\.(png|jpe?g|svg)$/)
-  );
-
   // GETTING ALL PRICES FROM DB
   const [prices, setPrices] = useState([]);
+  const [images, setImages] = useState([]);
 
   const getPrices = async () => {
     const res = await fetch("reservations/get-prices");
-    const dbprices = await res.json();
-    setPrices(dbprices);
+    const dbpricesimages = await res.json();
+    setPrices(dbpricesimages.prices);
+    setImages(dbpricesimages.images);
   };
 
   useEffect(() => {
     getPrices();
   }, []);
-
-  const pricelistitemClickHandler = (e) => {
-    const innerDesc = e.target
-      .closest("div")
-      .querySelector("." + s.pricelistitemdesc);
-    const openedInnerDesc = document.querySelector(
-      "." + s.pricelistitemdescactive
-    );
-    const innerDescImg = e.target
-      .closest("div")
-      .querySelector("." + s.descimginit);
-    const openedInnerDescImg = document.querySelector("." + s.descimg);
-    if (openedInnerDescImg && openedInnerDescImg !== innerDescImg) {
-      openedInnerDescImg.classList.toggle(s.descimg);
-    }
-    if (openedInnerDesc && openedInnerDesc !== innerDesc) {
-      openedInnerDesc.classList.toggle(s.pricelistitemdescactive);
-    }
-    innerDesc.classList.toggle(s.pricelistitemdescactive);
-    innerDescImg.classList.toggle(s.descimg);
-  };
 
   return (
     <main className={s.general}>
@@ -67,30 +33,23 @@ const Content = (props) => {
         <h3 className={s.pricelistTitle1}>Pricelist</h3>
         <div className={s.pricelist}>
           {prices.map((pricelistItem) => (
-            <div className={s.pricelistitem} key={pricelistItem._id}>
-              <p
-                onClick={pricelistitemClickHandler}
-                className={s.pricelistitemname}
-              >
-                {pricelistItem.title}
-              </p>
-              <span className={s.pricelistitemprice}>
-                {pricelistItem.additional && "+"}
-                {pricelistItem.price + "$"}
-              </span>
-              <div className={s.hl}></div>
-              <div className={s.pricelistitemdesc}>
-                <div className={s.descimgdiv}>
-                  <img src={testimg} alt="img" className={s.descimginit} />
-                </div>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptas consequatur porro, nulla ab qui ratione repellendus
-                  doloremque officia explicabo fuga quisquam eaque blanditiis
-                  asperiores labore sunt praesentium quis ipsa eveniet? Lorem
-                  ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                  libero repellat doloremque ad qui?
-                </div>
+            <div className={s.pricelistItem} key={pricelistItem._id}>
+              <div className={s.pricelistItemImgCont}>
+                <img
+                  className={s.pricelistItemImg}
+                  src={pricelistItem.image}
+                  alt={pricelistItem.image}
+                />
+              </div>
+              <div>
+                <h3 className={s.pricelistItemName}>{pricelistItem.title}</h3>
+                <p className={s.pricelistItemDesc}>
+                  {pricelistItem.description}
+                </p>
+                <span className={s.pricelistItemPrice}>
+                  {pricelistItem.additional && "+"}
+                  {pricelistItem.price + "$"}
+                </span>
               </div>
             </div>
           ))}
@@ -101,13 +60,14 @@ const Content = (props) => {
         <h2>Gallery</h2>
         <div className={s.photos}>
           {images.map((item) => (
-            <div className={s.imagediv} key={item}>
-              <img className={s.image} src={item} alt={item} />
+            <div className={s.imagediv} key={item._id}>
+              <img className={s.image} src={item.image} alt={item.image} />
             </div>
           ))}
         </div>
       </div>
       <OpenModalBtn modalAction={props.modalAction} />
+      <Review />
       <div className={s.contacts}>
         <h2>We are here!</h2>
         <div className={s.map}>

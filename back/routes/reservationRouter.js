@@ -13,4 +13,6 @@ router.post("/add-price", reservation_controller.createPrice);
 
 router.get("/get-prices", reservation_controller.getPrices);
 
+router.post("/review", reservation_controller.sendReview);
+
 module.exports = router;

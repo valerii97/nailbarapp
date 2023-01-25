@@ -2,6 +2,8 @@ const Reservation = require("../model/reservationModel");
 const avDates = require("../model/availableDatesModel");
 const telegabot = require("../model/telega");
 const Price = require("../model/priceListModel");
+const Gallery = require("../model/galleryModel");
+const Review = require("../model/reviewsModel");
 
 const telega = async (req) => {
   const { name, email, phone, pickedDate } = req.body;
@@ -69,8 +71,25 @@ exports.createPrice = async (req, res) => {
 exports.getPrices = async (req, res) => {
   try {
     const prices = await Price.find({});
-    res.status(200).send(prices);
+    const images = await Gallery.find({});
+    res.status(200).send({ prices, images });
   } catch (e) {
     res.status(500).send({ message: e });
+  }
+};
+
+exports.sendReview = async (req, res) => {
+  const { name, email, rate, feedback } = req.body;
+  const data = new Review({
+    name: name,
+    email: email,
+    rate: rate,
+    feedback: feedback,
+  });
+  try {
+    await data.save();
+    res.status(200).send({ message: "Review saved succesfully!" });
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
 };
