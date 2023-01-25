@@ -57,12 +57,15 @@
     grid-template-columns: 1fr max-content;
     grid-template-areas: 
     'n p'
-    'l l';
+    'l l'
+    'd d';
+    position: relative;
 }
 
 .pricelistitemname{
     grid-area: n;
     text-align: left;
+    cursor: pointer;
 
 }
 
@@ -73,6 +76,63 @@
     align-items: center;
 }
 
+.pricelistitemdesc{
+    line-height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    grid-area: d;
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    transform-origin: top right;
+    transform: scaleY(0);
+    transition: all ease-in-out 1.5s;
+}
+
+.pricelistitemdescactive{
+    /* transition: all ease-in-out 0.3s; */
+    /* animation: dropdown 2s;
+    transform-origin: top; */
+    margin-top: 10px;
+    border: 0.5px solid #D6AB7E;
+    padding: 10px 15px;
+    line-height: 1.5;
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.descimginit{
+    border-radius: 1rem;
+    height: 0;
+    width: 105px;
+    transform: translateY(-100px);
+    transform-origin: top right;
+    transition: all ease-in-out 1.5s;
+}
+
+.descimg{
+    transform: translateY(0);
+    height: 150px;
+}
+
+.descimgdiv{
+    margin-right: 10px;;
+}
+
+
+/* .pricelistitemdescactive:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 3px 3px #D6AB7E;
+} */
+
+@keyframes dropdown {
+    0%   {transform: scaleY(0);}
+    100% {transform: scaleY(1);}
+}
+  
 .contacts{
     margin-top: 70px;
     margin-bottom: 100px;

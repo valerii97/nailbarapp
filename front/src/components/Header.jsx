@@ -69,7 +69,7 @@ const Header = (props) => {
             <div>
               <FaPhoneSquareAlt size={30} />
             </div>
-            <div>+1-604-343-2222</div>
+            <div>+1 778 834 2623</div>
           </div>
           <div>
             <button

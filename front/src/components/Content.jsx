@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import s from "./Content.module.css";
 import location from "./location.jpg";
 import OpenModalBtn from "./OpenModalBtn";
+import testimg from "./gallery/01.jpg";
+import { AiOutlineDown } from "react-icons/ai";
 
 const Content = (props) => {
   // GET ALL IMAGES
@@ -32,6 +34,27 @@ const Content = (props) => {
     getPrices();
   }, []);
 
+  const pricelistitemClickHandler = (e) => {
+    const innerDesc = e.target
+      .closest("div")
+      .querySelector("." + s.pricelistitemdesc);
+    const openedInnerDesc = document.querySelector(
+      "." + s.pricelistitemdescactive
+    );
+    const innerDescImg = e.target
+      .closest("div")
+      .querySelector("." + s.descimginit);
+    const openedInnerDescImg = document.querySelector("." + s.descimg);
+    if (openedInnerDescImg && openedInnerDescImg !== innerDescImg) {
+      openedInnerDescImg.classList.toggle(s.descimg);
+    }
+    if (openedInnerDesc && openedInnerDesc !== innerDesc) {
+      openedInnerDesc.classList.toggle(s.pricelistitemdescactive);
+    }
+    innerDesc.classList.toggle(s.pricelistitemdescactive);
+    innerDescImg.classList.toggle(s.descimg);
+  };
+
   return (
     <main className={s.general}>
       <h1 className={s.maintitle}>
@@ -45,12 +68,30 @@ const Content = (props) => {
         <div className={s.pricelist}>
           {prices.map((pricelistItem) => (
             <div className={s.pricelistitem} key={pricelistItem._id}>
-              <p className={s.pricelistitemname}>{pricelistItem.title}</p>
+              <p
+                onClick={pricelistitemClickHandler}
+                className={s.pricelistitemname}
+              >
+                {pricelistItem.title}
+              </p>
               <span className={s.pricelistitemprice}>
                 {pricelistItem.additional && "+"}
                 {pricelistItem.price + "$"}
               </span>
               <div className={s.hl}></div>
+              <div className={s.pricelistitemdesc}>
+                <div className={s.descimgdiv}>
+                  <img src={testimg} alt="img" className={s.descimginit} />
+                </div>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Voluptas consequatur porro, nulla ab qui ratione repellendus
+                  doloremque officia explicabo fuga quisquam eaque blanditiis
+                  asperiores labore sunt praesentium quis ipsa eveniet? Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit. Culpa
+                  libero repellat doloremque ad qui?
+                </div>
+              </div>
             </div>
           ))}
         </div>

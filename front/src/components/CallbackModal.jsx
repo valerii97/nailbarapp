@@ -58,6 +58,7 @@ const CallbackModal = (props) => {
                 name="name"
                 id="input6"
                 placeholder="Pls, enter your name."
+                required
               />
             </div>
             <div>
