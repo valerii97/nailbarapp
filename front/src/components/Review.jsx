@@ -55,10 +55,40 @@ function Review() {
     setRateclicked(false);
   };
 
+  const [formHover, setFormHover] = useState(false);
+  const [inputFocus, setInputFocus] = useState(false);
+
   return (
     <div className={s.general}>
       <h3 className={s.rateTitle}>Please, find few seconds to rate us!</h3>
-      <div className={s.formHolder}>
+      <div
+        className={s.formHolder}
+        onMouseEnter={() => {
+          if (!inputFocus) {
+            setFormHover(true);
+          }
+        }}
+        onMouseLeave={() => {
+          if (!inputFocus) {
+            setFormHover(false);
+          }
+        }}
+        onFocus={() => {
+          setInputFocus(true);
+          setFormHover(true);
+        }}
+        onBlur={() => {
+          setInputFocus(false);
+          setFormHover(false);
+        }}
+      >
+        <div
+          className={
+            formHover
+              ? s.slideEffect + " " + s.slideEffectActive
+              : s.slideEffect
+          }
+        ></div>
         <form
           className={s.reviewForm}
           onSubmit={reviewSubmitHandler}

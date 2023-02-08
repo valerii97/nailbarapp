@@ -1,7 +1,16 @@
 import "./AdminApp.css";
+import { AdminHeader } from "./components/AdminHeader";
+import { AdminSidebar } from "./components/AdminSidebar";
+import { AdminContent } from "./components/AdminContent";
 
-function AdminApp() {
-  return <div className="App">hello!</div>;
-}
+const AdminApp = () => {
+  return (
+    <div className="App">
+      <AdminHeader />
+      <AdminSidebar />
+      <AdminContent />
+    </div>
+  );
+};
 
 export default AdminApp;

@@ -9,20 +9,12 @@
     top: 0;
     width: 100%;
     color: white;
+    transition: 0.5s ease-in-out;
 }
 
 .active{
-    grid-area: header;
-    border-radius: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
     background-color: #d6ab7eea;
     z-index: 990;
-    color: white;
 }
 
 .logoholder{
@@ -140,6 +132,14 @@
 
     .logoholder{
         justify-content: left;
+        left: 0;
+        transition: 1s ease-in-out;
+        /* background-color: #D18A3A; */
+    }
+
+    .logoholderopen{
+        left: calc(50% - 69px);
+        /* background-color: #2c2926; */
     }
 
     .logoname{
@@ -154,8 +154,16 @@
     }
 
     .contacts{
-        display: none;
         text-align: center;
+        height: 0px;
+        overflow: hidden;
+        transition: 1s ease-in-out;
+    }
+
+    .contactsopen{
+        display: flex;
+        height: 85px;
+
     }
     
 }
@@ -174,9 +182,12 @@
     }
 
     .contacts{
-        display: none;
         flex-direction: column;
-        text-align: center;
+    }
+
+    .contactsopen{
+        height: 220px;
+
     }
     
 }

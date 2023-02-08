@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 
 // res router
 const reservationRouter = require("./routes/reservationRouter");
+const adminRouter = require("./routes/adminRouter");
 
 //CREATE EXPRESS APP
 const app = express();
@@ -17,6 +18,7 @@ dotenv.config();
 
 //APPLYING ROUTERS
 app.use("/reservations", reservationRouter);
+app.use("/admin", adminRouter);
 
 //SETTING UP DATABASE
 const mongoString = process.env.DATABASE_URL;

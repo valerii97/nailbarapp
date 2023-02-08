@@ -4,6 +4,7 @@ import s from "./Content.module.css";
 import location from "./location.jpg";
 import OpenModalBtn from "./OpenModalBtn";
 import Review from "./Review";
+import "./titleAnimation.css";
 
 const Content = (props) => {
   // GETTING ALL PRICES FROM DB
@@ -21,13 +22,65 @@ const Content = (props) => {
     getPrices();
   }, []);
 
+  // const [slogan, setSlogan] = useState([]);
+
+  // useEffect(() => {
+  //   let count = -1;
+  //   const slog = [
+  //     "Here ",
+  //     "you're ",
+  //     "gonna ",
+  //     "do ",
+  //     "the ",
+  //     "best ",
+  //     "nails ",
+  //     "in ",
+  //     "BC!",
+  //   ];
+  //   const interval = setInterval(() => {
+  //     if (count < slog.length - 1) {
+  //       count += 1;
+  //       setSlogan((s) => [...s, slog[count]]);
+  //     } else {
+  //       count = 0;
+  //       setSlogan([slog[count]]);
+  //     }
+  //   }, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  const slogan = [
+    "Here ",
+    "you're ",
+    "gonna ",
+    "do ",
+    "the ",
+    "best ",
+    "nails ",
+    "in ",
+    "BC!",
+  ];
+
   return (
     <main className={s.general}>
       <h1 className={s.maintitle}>
         Welcome to Mary's <br /> Nail Bar!
       </h1>
       <h2 className={s.secondarytitle}>
-        Here you're gonna do <br /> the best nails in BC!
+        <div className={s.secTitleDiv + " " + "hello"}>
+          {slogan.map((item, index) => {
+            return (
+              <span
+                className={s.sloganSpan}
+                key={"slog__" + index}
+                id={"slog_" + index}
+              >
+                {item}
+              </span>
+            );
+          })}
+        </div>
       </h2>
       <div className={s.pricelistHolder}>
         <h3 className={s.pricelistTitle1}>Pricelist</h3>
