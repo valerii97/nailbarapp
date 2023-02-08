@@ -1,3 +1,5 @@
+$spans: slog_0, slog_1;
+
 h1,
 h2,
 h3,
@@ -157,11 +159,49 @@ p {
   text-align: center;
 }
 
+@mixin title-animation($animation_name, $tata) {
+  @keyframes #{$animation_name} {
+    0% {
+      transform: translate(0, 28px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translate(#{$tata});
+      opacity: 1;
+    }
+  }
+}
+
+@mixin animation-data($str, $delay) {
+  animation: #{$str};
+  animation-fill-mode: both;
+  animation-delay: #{$delay};
+}
+
 .secTitleDiv {
   position: relative;
   width: 60%;
   height: 40px;
   margin: auto;
+  text-align: center;
+  @for $i from 0 to length($spans) {
+    @include title-animation(
+      nth($spans, $i + 1),
+      (calc(-30vw + 105px), $i * 28px)
+    );
+  }
+
+  span {
+    @for $i from 0 to length($spans) {
+      &:nth-child(#{$i + 1}) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include animation-data(nth($spans, $i + 1) 2s ease-in-out, $i * 1s);
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 782px) {
