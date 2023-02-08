@@ -137,10 +137,9 @@ p {
 }
 
 .photos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 20px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .imagediv {
@@ -204,6 +203,19 @@ p {
   }
 }
 
+@media screen and (min-width: 1006px) {
+  .photos {
+    width: 1000px;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  .photos {
+    width: 700px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media screen and (max-width: 782px) {
   .general {
     top: 50px;
@@ -215,6 +227,13 @@ p {
 
   .pricelist {
     width: 60vw;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .photos {
+    width: auto;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 

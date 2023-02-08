@@ -29,7 +29,6 @@ const Content = (props) => {
       <h2 className={s.secondarytitle}>
         <div className={s.secTitleDiv}>
           <span>Here you're gonna do </span>
-
           <span>the best nails in BC!</span>
         </div>
       </h2>
