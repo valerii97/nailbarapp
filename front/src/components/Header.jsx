@@ -24,6 +24,7 @@ const Header = (props) => {
 
   useEffect(() => {
     window.addEventListener("scroll", changeNavbarOpacity);
+    // eslint-disable-next-line
   }, []);
 
   const createSchedule = async () => {

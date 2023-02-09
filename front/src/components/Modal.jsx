@@ -1,20 +1,45 @@
 import React, { useEffect, useState } from "react";
-import s from "./Modal.module.css";
+import s from "./modal.module.css";
 import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 
 const Modal = (props) => {
+  //highlight which date is picked
   const pickDateandTime = (e) => {
-    Array.from(document.querySelectorAll("." + s.pickedDateTime)).forEach(
+    Array.from(document.querySelectorAll("." + s.dateTimeSpan)).forEach(
       (item) => {
         item.classList.remove(s.pickedDateTime);
       }
     );
     e.currentTarget.classList.add(s.pickedDateTime);
+
+    const time = e.currentTarget
+      .closest("div")
+      .querySelector("div")
+      .querySelectorAll("span");
+    document.querySelectorAll("." + s.open).forEach((item) => {
+      item.classList.remove(s.open);
+    });
+    time.forEach((item) => {
+      item.classList.add(s.open);
+    });
+    scaleOtherDates(e);
   };
 
+  const scaleOtherDates = (e) => {
+    const otherDates = document.querySelectorAll("." + s.dateDiv);
+    console.log(e.currentTarget.closest("div"));
+    otherDates.forEach((item) => {
+      if (item !== e.currentTarget.closest("div")) {
+        item.classList.add(s.scaled);
+      }
+    });
+    e.currentTarget.closest("div").classList.remove(s.scaled);
+  };
+
+  // buttons for date pagination control
   const [btnstate, setBtnstate] = useState(0);
 
   const handleBtnLeft = (e) => {
@@ -27,26 +52,74 @@ const Modal = (props) => {
     setBtnstate(btnstate + 1);
   };
 
+  // loading and processing of available dates
   const [availableDates, setAvailableDates] = useState(null);
+  const [someshit, setSomeshit] = useState(null);
 
   const fetchData = async () => {
     const response = await fetch("/reservations/available");
     const newData = await response.json();
     setAvailableDates(newData);
+
+    // creating more comfortable data structure
+    const processedDates = [];
+    const checkDates = [];
+    const weekarr = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    await newData.forEach((item) => {
+      const date = new Date(item.date);
+      if (!checkDates.includes(date.getDate())) {
+        processedDates.push({
+          date: date.getDate(),
+          weekday: weekarr[date.getDay()],
+          time: [{ hours: date.getHours(), minutes: date.getMinutes() }],
+        });
+      } else {
+        processedDates
+          .slice(-1)[0]
+          .time.push({ hours: date.getHours(), minutes: date.getMinutes() });
+      }
+      checkDates.push(date.getDate());
+    });
+    setSomeshit(processedDates);
   };
 
+  // used for old data structure
   const getDate = (stringDate) => {
-    return new Date(stringDate).toLocaleString();
+    const weekarr = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const date = new Date(stringDate);
+    const res = { date: date.getDate(), weekday: weekarr[date.getDay()] };
+    return res;
   };
 
+  // loading dates
   useEffect(() => {
     fetchData();
   }, []);
 
-  const datePagination = 6;
+  // pagination control, how much dates you want to see on one page
+  const datePagination = 4;
 
+  // for phone input
   const [phoneValue, setPhoneValue] = useState("");
 
+  // request to make new reservation
   const makeReservation = async (data) => {
     try {
       const response = await fetch("/reservations", {
@@ -64,6 +137,7 @@ const Modal = (props) => {
     }
   };
 
+  // on submit of reservation form event
   const submitReservationHandler = async (e) => {
     e.preventDefault();
     const data = {
@@ -144,35 +218,45 @@ const Modal = (props) => {
                   <BsFillArrowLeftCircleFill size={25} />
                 </button>
               )}
-              {availableDates?.length / datePagination - btnstate > 1 && (
+              {someshit?.length / datePagination - btnstate > 1 && (
                 <button onClick={handleBtnRight} className={s.cntrlBtnRight}>
                   <BsFillArrowRightCircleFill size={25} />
                 </button>
               )}
             </div>
             <div className={s.datePick}>
-              {availableDates
+              {someshit
                 ?.slice(
                   0 + btnstate * datePagination,
                   datePagination + btnstate * datePagination
                 )
                 .map((date) => (
-                  <div key={date._id}>
+                  <div key={date.date} className={s.dateDiv}>
                     <input
                       type="radio"
-                      id={date._id}
+                      id={date.date}
                       name="pickedDate"
-                      value={date._id}
+                      value={date.date}
                       className={s.dateTimeInput}
                       required
                     />
                     <label
-                      htmlFor={date._id}
+                      htmlFor={date.date}
                       onClick={pickDateandTime}
                       className={s.dateTimeSpan}
                     >
-                      {getDate(date.date)}
+                      <figure className={s.calendarIcon}>
+                        <header>{date.weekday}</header>
+                        <section>{date.date}</section>
+                      </figure>
                     </label>
+                    <div className={s.availableTime}>
+                      {date.time.map((item) => (
+                        <span>
+                          {item.hours}:{item.minutes}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 ))}
             </div>

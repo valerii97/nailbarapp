@@ -1,0 +1,314 @@
+.modalBackground {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background-color: rgba(128, 128, 128, 0.507);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContainer {
+  position: relative;
+  background-color: #fff;
+  padding: 25px 50px;
+  border: 1px solid #d18a3a;
+  border-radius: 1.5rem;
+  width: 50vw;
+  height: min-content;
+  text-align: center;
+}
+
+.closeBtn {
+  width: 50px;
+  padding: 5px;
+  background: rgb(161, 6, 6);
+  border-radius: 1em;
+  border: 2px solid black;
+  color: white;
+  font-weight: 500;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.datePick {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.dateTimeInput {
+  opacity: 0;
+  width: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.dateTimeSpan {
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.formHolder {
+  form {
+    div {
+      input[type="radio"] {
+        width: 0;
+      }
+    }
+    h4 {
+      margin-top: 20px;
+    }
+    div {
+      margin-top: 10px;
+    }
+  }
+}
+
+.formHolder form div input {
+  width: 50%;
+  border: 1px solid #ece9e4;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.formHolder form div input:focus {
+  border: 2px solid rgb(65, 65, 220);
+}
+
+.formHolder form div input[type="submit"] {
+  width: min-content;
+  cursor: pointer;
+}
+
+.datesControlBtnsHolder {
+  position: relative;
+}
+
+.cntrlBtnLeft,
+.cntrlBtnRight {
+  position: absolute;
+  top: -20px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: rgb(7, 68, 121);
+}
+
+.cntrlBtnLeft {
+  left: 40px;
+}
+
+.cntrlBtnRight {
+  right: 40px;
+}
+
+$cal-width: 128px/2;
+$cal-height: 111px/2;
+
+.calendarIcon {
+  margin: 0;
+
+  width: $cal-width;
+  height: $cal-height;
+
+  background-color: #dfdfdf;
+  border-radius: 10px;
+
+  position: relative;
+
+  &:before {
+    content: "";
+    display: block;
+
+    width: $cal-width;
+    height: $cal-height/1.6;
+
+    border-radius: 10px 10px 0 0;
+
+    background-image: -webkit-linear-gradient(white 0%, #edeeef 100%);
+    background-image: -moz-linear-gradient(white 0%, #edeeef 100%);
+    background-image: -o-linear-gradient(white 0%, #edeeef 100%);
+    background-image: linear-gradient(white 0%, #edeeef 100%);
+  }
+
+  header {
+    width: $cal-width;
+    height: $cal-height/4;
+
+    position: absolute;
+    top: -1px;
+
+    background-color: #fa565a;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 3px solid #e5e5e5;
+
+    font: 400 12px/15px Arial, Helvetica, Geneva, sans-serif;
+    letter-spacing: 0.5px;
+    color: #fff;
+
+    text-align: center;
+  }
+
+  section {
+    width: $cal-width;
+    height: $cal-height/1.4;
+
+    position: absolute;
+    top: -7px;
+
+    font: 400 30px/80px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    letter-spacing: -2px;
+    color: #4c566b;
+
+    text-align: center;
+
+    z-index: 10;
+
+    &:before {
+      content: "";
+      display: block;
+
+      position: absolute;
+      top: 35px;
+
+      width: 3px;
+      height: 10px;
+
+      background-image: -webkit-linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+      background-image: -moz-linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+      background-image: -o-linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+      background-image: linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+    }
+
+    &:after {
+      content: "";
+      display: block;
+
+      position: absolute;
+      top: 35px;
+      right: 0;
+
+      width: 3px;
+      height: 10px;
+
+      background-image: -webkit-linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+      background-image: -moz-linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+      background-image: -o-linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+      background-image: linear-gradient(#b5bdc5 0%, #e5e5e5 100%);
+    }
+  }
+}
+
+.availableTime {
+  span {
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    &.open {
+      position: initial;
+      width: auto;
+      height: auto;
+      visibility: visible;
+      padding: 5px;
+      margin: 0 5px;
+      border-radius: 5px;
+      background-color: #4c566b;
+      color: #d2bba1;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        background-color: #b5bdc5;
+        color: darkblue;
+      }
+    }
+  }
+}
+
+.dateDiv {
+  position: initial;
+  transition: all 1s ease-in-out;
+  display: flex;
+  .dateTimeSpan {
+    font-size: 15px;
+    margin: auto 20px;
+    height: fit-content;
+  }
+  .availableTime {
+    display: flex;
+    flex-direction: column;
+    span {
+      margin: 5px auto;
+    }
+  }
+  &.scaled {
+    transform: scale(1) translate(0, 0);
+    @for $i from 0 through 3 {
+      &:nth-child(#{$i + 1}) {
+        position: absolute;
+        transform: scale(0.5) translate(-40vw, ($i - 1) * 75px);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .modalContainer {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .modalContainer {
+    width: 100vw;
+  }
+  .closeBtn {
+    top: 10px;
+    right: 20px;
+  }
+
+  .datePick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 20px;
+  }
+
+  .formHolder form div label {
+    font-size: 13px;
+    margin-right: 0px;
+    margin-top: 0;
+  }
+
+  .formHolder form div input {
+    width: 50vw;
+  }
+
+  .cntrlBtnLeft,
+  .cntrlBtnRight {
+    top: -12px;
+  }
+
+  .cntrlBtnLeft {
+    left: 0px;
+  }
+
+  .cntrlBtnRight {
+    right: 0px;
+  }
+}

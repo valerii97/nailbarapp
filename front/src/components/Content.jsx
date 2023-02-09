@@ -24,7 +24,7 @@ const Content = (props) => {
   return (
     <main className={s.general}>
       <h1 className={s.maintitle}>
-        Welcome to Mary's <br /> Nail Bar!
+        Welcome to <br /> Mary's Nail Bar!
       </h1>
       <h2 className={s.secondarytitle}>
         <div className={s.secTitleDiv}>
