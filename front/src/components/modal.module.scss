@@ -312,3 +312,21 @@ $cal-height: 111px/2;
     right: 0px;
   }
 }
+
+.validationMessage {
+  position: absolute;
+  visibility: hidden;
+  bottom: 5rem;
+  left: calc(50% - 108px);
+  padding: 2px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: visibility 1s ease-in-out, background-color 1s ease-in-out,
+    opacity 1s ease-in-out;
+  &.failed {
+    opacity: 1;
+    color: white;
+    background-color: red;
+    visibility: visible;
+  }
+}
