@@ -1,40 +1,58 @@
 const Reservation = require("../model/reservationModel");
-const avDates = require("../model/availableDatesModel");
 const telegabot = require("../model/telega");
-const Price = require("../model/priceListModel");
-const Gallery = require("../model/galleryModel");
-const Review = require("../model/reviewsModel");
+// google-calendar api
+const googleapi = require("../model/googleapi/googleapi");
 
-const telega = async (req) => {
-  const { name, email, phone, pickedDate } = req.body;
-  const date = await avDates.findOne({ _id: pickedDate });
-  let telegamsg = `New reservation!\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDate: ${date.date.toLocaleString()}`;
+const telega = async (req, date) => {
+  const { name, email, phone, services, pickedDate } = req.body;
+  let telegamsg = `New reservation!\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nServices: ${services} \nDate: ${new Date(
+    date
+  ).toLocaleString()}`;
   telegabot.bot.sendMessage("472359032", telegamsg);
 };
 
 exports.index = async (req, res) => {
-  const { name, email, phone, pickedDate } = req.body;
-  const data = new Reservation({
-    name: name,
-    email: email,
-    phone: phone,
-    date: pickedDate,
-  });
+  const { name, email, phone, services, pickedDate } = req.body;
+  // formating user data, which will be displayed in calendar
+  const userData = {
+    summary: `Appointment for ${name}`,
+    description: `Name: ${name}, \nEmail: ${email}, \nPhone: ${phone} \nServices: ${services} \n`,
+  };
+
   try {
-    await avDates.findOne({ _id: pickedDate }).updateOne({ busy: true });
+    // connecting to google api, making authorization and getting date of reservation made
+    const auth = await googleapi.authorize();
+    const date = await googleapi.getDatebyId(pickedDate, auth);
+    // sending message about new reservation to telegram
+    telega(req, date);
+    // creating new reservation in google calendar
+    const makeReservation = await googleapi.makeReservation(
+      pickedDate,
+      userData,
+      auth
+    );
+    // creating new reservation in database and saving it there
+    const data = new Reservation({
+      name: name,
+      email: email,
+      phone: phone,
+      services: services,
+      date: date,
+    });
     await data.save();
-    telega(req);
     res.status(200).send({ message: "Reservation succefuly made!" });
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
 };
 
-exports.available = async (req, res) => {
+exports.availableDates = async (req, res) => {
   try {
-    const availableDates = await avDates
-      .find({ busy: false })
-      .sort({ date: 1 });
+    // getting list of available dates and times for appointment
+    const availableDates = await googleapi
+      .authorize()
+      .then(googleapi.listEvents)
+      .catch(console.error);
 
     res.send(availableDates);
   } catch (error) {
@@ -65,31 +83,5 @@ exports.createPrice = async (req, res) => {
     res.status(200).send({ message: "request received" });
   } catch (e) {
     res.status(500).send({ message: e });
-  }
-};
-
-exports.getPrices = async (req, res) => {
-  try {
-    const prices = await Price.find({});
-    const images = await Gallery.find({});
-    res.status(200).send({ prices, images });
-  } catch (e) {
-    res.status(500).send({ message: e });
-  }
-};
-
-exports.sendReview = async (req, res) => {
-  const { name, email, rate, feedback } = req.body;
-  const data = new Review({
-    name: name,
-    email: email,
-    rate: rate,
-    feedback: feedback,
-  });
-  try {
-    await data.save();
-    res.status(200).send({ message: "Review saved succesfully!" });
-  } catch (e) {
-    res.status(500).json({ message: e.message });
   }
 };

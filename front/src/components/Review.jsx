@@ -1,6 +1,5 @@
-import React from "react";
 import { useState } from "react";
-import s from "./Review.module.css";
+import s from "../static/styles/review.module.css";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 
@@ -83,11 +82,12 @@ function Review() {
         }}
       >
         <div
-          className={
-            formHover
-              ? s.slideEffect + " " + s.slideEffectActive
-              : s.slideEffect
-          }
+          // className={
+          //   formHover
+          //     ? s.slideEffect + " " + s.slideEffectActive
+          //     : s.slideEffect
+          // }
+          className={s.slideEffect}
         ></div>
         <form
           className={s.reviewForm}
@@ -102,34 +102,38 @@ function Review() {
             <label htmlFor="email">Email (optional): </label>
             <input type="email" name="email" />
           </div>
-          <div
-            className={s.flexInputs}
-            onMouseLeave={() => {
-              if (!rateclicked) {
-                setRate(0);
-              }
-            }}
-          >
-            {rates.map((item) => (
-              <div key={item + "stars"}>
-                <label
-                  htmlFor={item}
-                  onMouseEnter={rateHandler}
-                  onClick={rateClickedHandler}
-                >
-                  {rate >= item && <AiFillStar size={30} />}
-                  {rate < item && <AiOutlineStar size={30} />}
-                </label>
-                <input
-                  type="radio"
-                  id={item}
-                  name="rate"
-                  value={item}
-                  required
-                />
-              </div>
-            ))}
+          <div className={s.gridInputs}>
+            <div></div>
+            <div
+              className={s.flexInputs}
+              onMouseLeave={() => {
+                if (!rateclicked) {
+                  setRate(0);
+                }
+              }}
+            >
+              {rates.map((item, index) => (
+                <div key={index + "_stars"}>
+                  <label
+                    htmlFor={item}
+                    onMouseEnter={rateHandler}
+                    onClick={rateClickedHandler}
+                  >
+                    {rate >= item && <AiFillStar size={45} />}
+                    {rate < item && <AiOutlineStar size={45} />}
+                  </label>
+                  <input
+                    type="radio"
+                    id={item}
+                    name="rate"
+                    value={item}
+                    required
+                  />
+                </div>
+              ))}
+            </div>
           </div>
+
           <div className={s.gridInputs}>
             <label htmlFor="feedback">Feedback (optional): </label>
             <textarea name="feedback" rows={3}></textarea>

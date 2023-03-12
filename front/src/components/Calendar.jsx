@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import s from "./calendar.module.css";
+import { useState } from "react";
+import s from "../static/styles/calendar.module.css";
 import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 import { useEffect } from "react";
+import nail_animation from "../static/images/nail_animation.gif";
 
-const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
+const Calendar = ({
+  avDates,
+  chooseDate,
+  disableDateValidationMessage,
+  valid_messages,
+}) => {
   const now = new Date();
   const [month, setMonth] = useState(now.getMonth());
   const monthsAhead = 2;
@@ -62,9 +68,9 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
 
   useEffect(() => {
     if (month <= now.getMonth()) {
-      document.querySelector("." + s.leftArrow).classList.add(s.hide);
+      document.querySelector("." + s.leftArrow1).classList.add(s.hide);
     } else {
-      document.querySelector("." + s.leftArrow).classList.remove(s.hide);
+      document.querySelector("." + s.leftArrow1).classList.remove(s.hide);
     }
     if (month >= now.getMonth() + monthsAhead) {
       document.querySelector("." + s.rightArrow).classList.add(s.hide);
@@ -98,12 +104,15 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
 
   useEffect(() => {
     const activeMonth = document.querySelector("." + s.active);
-    if (avDates) {
-      activeMonth.classList.remove(s.loading);
-      filterByAvDates(avDates, activeMonth);
-    } else {
-      activeMonth.classList.add(s.loading);
-    }
+    const loadingScreen = document.querySelector("." + s.loading);
+
+    setTimeout(() => {
+      if (avDates) {
+        filterByAvDates(avDates, activeMonth);
+        activeMonth.classList.remove(s.loadingDates);
+        loadingScreen.classList.add(s.hideLoading);
+      }
+    }, 500);
   });
 
   const leftArrowHandler = (e) => {
@@ -144,7 +153,7 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
 
   const datePickHandler = (e) => {
     e.preventDefault();
-    const timePickerDiv = document.querySelector("." + s.timePicker);
+    const timePickerDiv = document.querySelector("." + s.timePicker1);
     timePickerDiv.classList.add(s.showTimePicker);
     const activeMonth = document.querySelector("." + s.active);
     activeMonth.classList.add(s.bluredSlide);
@@ -157,7 +166,13 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
         if (month === date.getMonth()) {
           // i've put slice here, because when we have a time picked, it counts inner span with time as innerText as well
           if (Number(e.target.innerText.slice(0, 2)) === date.getDate()) {
-            hoursmins.push([date.getHours(), date.getMinutes(), item._id]);
+            hoursmins.push([
+              date.getHours(),
+              date.getMinutes() < 10
+                ? "0" + date.getMinutes()
+                : date.getMinutes(),
+              item._id,
+            ]);
           }
         }
       });
@@ -167,7 +182,7 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
 
   const closeTimePicker = (e) => {
     e.preventDefault();
-    const timePickerDiv = e.target.closest("." + s.timePicker);
+    const timePickerDiv = e.target.closest("." + s.timePicker1);
     timePickerDiv.classList.remove(s.showTimePicker);
     const activeMonth = document.querySelector("." + s.active);
     activeMonth.classList.remove(s.bluredSlide);
@@ -180,7 +195,9 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
     const innerSpan = pickedDate.querySelector("span");
     innerSpan.innerText = e.target.innerText;
     chooseDate(e.target.id);
-    enableDateValidationMessage(false);
+    disableDateValidationMessage((oldArr) =>
+      oldArr.filter((item) => item !== valid_messages.date)
+    );
     pickedDate.classList.add(s.pickedDateandTime);
   };
 
@@ -204,7 +221,7 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
         <div className={s.arrowsHolder}>
           <BsFillArrowLeftCircleFill
             size={25}
-            className={s.leftArrow}
+            className={s.leftArrow1}
             onClick={leftArrowHandler}
           />
           <BsFillArrowRightCircleFill
@@ -214,7 +231,10 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
           />
         </div>
         <div className={s.calTableHolder}>
-          <div className={s.timePicker}>
+          <div className={s.loading}>
+            <img src={nail_animation} alt="gifka" />
+          </div>
+          <div className={s.timePicker1}>
             <button
               className={s.btn + " " + s.btnClose}
               onClick={closeTimePicker}
@@ -237,7 +257,7 @@ const Calendar = ({ avDates, chooseDate, enableDateValidationMessage }) => {
               <div
                 className={
                   month === item[1].getMonth()
-                    ? s.slider + " " + s.active
+                    ? s.slider + " " + s.active + " " + s.loadingDates
                     : item[1].getMonth() < month
                     ? s.slider + " " + s.prevSlide
                     : item[1].getMonth() > month

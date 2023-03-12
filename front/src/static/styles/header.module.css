@@ -1,0 +1,223 @@
+.general {
+  grid-area: header;
+  border-radius: 0 0 15px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: white;
+  background-color: #a35342;
+  z-index: 990;
+}
+
+.logoholder {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoimg {
+  margin-right: 20px;
+  height: 120px;
+  border-radius: 15px;
+}
+
+.logoname {
+  padding: 5px;
+  font-family: "Raleway";
+  font-size: 55px;
+  text-align: center;
+}
+
+.contacts {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 25px;
+}
+
+.contacts > a,
+.contacts > div {
+  margin: 5px 20px;
+}
+
+.phone {
+  position: relative;
+  text-align: center;
+}
+
+.phone > div {
+  padding: 5px;
+  font-size: 25px;
+}
+
+.callMeBack {
+  font-family: "Raleway";
+  font-weight: 700;
+  text-decoration: none;
+  background-color: #a35342;
+  padding: 7px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.phoneinside {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.facebooklink {
+  margin-right: 10px;
+}
+
+.facebooklink,
+.instalink,
+.appointmentlink {
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+.appointmentlink {
+  position: relative;
+}
+
+.appointmenticon {
+  position: absolute;
+  left: -2px;
+  top: 1px;
+}
+
+.forScheduleCreation {
+  display: none;
+}
+
+.burgericon {
+  display: none;
+}
+
+@media screen and (max-width: 1290px) {
+  .logoname {
+    font-size: 57px;
+  }
+  .contacts {
+    font-size: 20px;
+  }
+  .phone > div {
+    font-size: 20px;
+  }
+  .callMeBack {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1250px) {
+  .logoname {
+    font-size: 50px;
+  }
+  .contacts {
+    font-size: 20px;
+  }
+  .phone > div {
+    font-size: 20px;
+  }
+  .callMeBack {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1190px) {
+  .logoname {
+    font-size: 40px;
+  }
+  .contacts {
+    font-size: 18px;
+  }
+  .phone > div {
+    font-size: 18px;
+  }
+  .callMeBack {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .logoname {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 1030px) {
+  .logoname {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 980px) {
+  .logoname {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .logoname {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 790px) {
+  .general,
+  .active {
+    display: block;
+    z-index: 999;
+  }
+  .burgericon {
+    display: inline;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+  .logoholder {
+    justify-content: left;
+    left: 0;
+    transition: 1s ease-in-out;
+    /* background-color: #D18A3A; */
+  }
+  .logoholderopen {
+    left: calc(50% - 69px);
+    /* background-color: #2c2926; */
+  }
+  .logoimg {
+    margin-right: 10px;
+    margin-left: 5px;
+    width: 35px;
+    height: 50px;
+  }
+  .contacts {
+    text-align: center;
+    height: 0px;
+    overflow: hidden;
+    transition: 1s ease-in-out;
+  }
+  .contactsopen {
+    display: flex;
+    height: 85px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .logoname {
+    font-size: 20px;
+  }
+  .logoimg {
+    margin-right: 10px;
+    margin-left: 5px;
+    width: 35px;
+    height: 50px;
+  }
+  .contacts {
+    flex-direction: column;
+  }
+  .contactsopen {
+    height: 220px;
+  }
+}/*# sourceMappingURL=header.module.css.map */

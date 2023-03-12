@@ -1,0 +1,78 @@
+@import "./general/colors";
+@import "./general/fonts";
+
+.gallery {
+  margin: 60px 0px;
+  text-align: center;
+  h2 {
+    font-size: 67px;
+    font-weight: 800;
+    color: $color2;
+  }
+}
+
+.photos {
+  position: relative;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.imagediv {
+  padding: 15px;
+  opacity: 1;
+  transform: scale(0.9);
+  transition: opacity 1s ease-in-out, transform 1.2s ease-in-out;
+  &.hiddenimagediv {
+    visibility: hidden;
+    opacity: 0.1;
+    transform: scale(0.3);
+    position: absolute;
+  }
+}
+
+.image {
+  box-shadow: 1em 0.5em 1em $bg_color5;
+  border-radius: 1rem;
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.galleryBtnsHolder {
+  position: relative;
+}
+
+.leftArrow,
+.rightArrow {
+  position: absolute;
+  top: 220px;
+  cursor: pointer;
+  z-index: 10;
+}
+.leftArrow {
+  left: 30px;
+}
+.rightArrow {
+  right: 30px;
+}
+
+@media screen and (min-width: 1006px) {
+  .photos {
+    width: 1000px;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  .photos {
+    width: 700px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .photos {
+    width: auto;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

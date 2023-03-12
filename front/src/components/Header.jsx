@@ -1,7 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import logoimg from "./logo1.jpg";
-import s from "./Header.module.css";
+import { useState } from "react";
+import logoimg from "../static/images/logo1.jpg";
+import s from "../static/styles/header.module.css";
 import { FaFacebookSquare } from "react-icons/fa";
 import { GrInstagram } from "react-icons/gr";
 import { FaPhoneSquareAlt } from "react-icons/fa";
@@ -9,32 +8,7 @@ import OpenModalBtn from "./OpenModalBtn";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = (props) => {
-  const [navbar, setNavbar] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-
-  const changeNavbarOpacity = () => {
-    if (window.scrollY >= 90) {
-      setNavbar(true);
-      props.changebtnbgcolor("#D18A3A");
-    } else {
-      props.changebtnbgcolor("#D6AB7E");
-      setNavbar(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", changeNavbarOpacity);
-    // eslint-disable-next-line
-  }, []);
-
-  const createSchedule = async () => {
-    await fetch("/createSchedule");
-  };
-
-  const runCreateSchedule = (e) => {
-    e.preventDefault();
-    createSchedule();
-  };
 
   const openCallbackModal = (e) => {
     e.preventDefault();
@@ -42,16 +16,14 @@ const Header = (props) => {
   };
 
   return (
-    <header className={navbar ? s.general + " " + s.active : s.general}>
+    <header className={s.general}>
       <div
         className={
           openMenu ? s.logoholder + " " + s.logoholderopen : s.logoholder
         }
       >
         <img className={s.logoimg} src={logoimg} alt="logo" />
-        <span className={s.logoname}>
-          Mary's <br /> Nail Bar
-        </span>
+        <span className={s.logoname}>Maria's Nail Studio</span>
       </div>
       <div
         className={openMenu ? s.contacts + " " + s.contactsopen : s.contacts}
@@ -59,15 +31,12 @@ const Header = (props) => {
         <div className={s.phone}>
           <div className={s.phoneinside}>
             <div>
-              <FaPhoneSquareAlt size={30} />
+              <FaPhoneSquareAlt size={45} />
             </div>
             <div>+1 778 834 2623</div>
           </div>
           <div>
-            <button
-              style={{ backgroundColor: props.btnbgcolor }}
-              onClick={openCallbackModal}
-            >
+            <button className={s.callMeBack} onClick={openCallbackModal}>
               Request call back!
             </button>
           </div>
@@ -79,7 +48,7 @@ const Header = (props) => {
             rel="noreferrer"
             className={s.facebooklink}
           >
-            <FaFacebookSquare size={35} />
+            <FaFacebookSquare size={45} />
           </a>
           <a
             href="https://instagram.com/vygornytskaya"
@@ -87,14 +56,11 @@ const Header = (props) => {
             rel="noreferrer"
             className={s.instalink}
           >
-            <GrInstagram size={35} />
+            <GrInstagram size={45} />
           </a>
         </div>
 
-        <OpenModalBtn
-          modalAction={props.modalAction}
-          btnbgcolor={props.btnbgcolor}
-        />
+        <OpenModalBtn modalAction={props.modalAction} />
       </div>
       <div className={s.burgericon}>
         <GiHamburgerMenu
@@ -103,11 +69,6 @@ const Header = (props) => {
           }}
           size={25}
         />
-      </div>
-      <div className={s.forScheduleCreation}>
-        <button onClick={runCreateSchedule}>
-          Create <br /> schedule
-        </button>
       </div>
     </header>
   );

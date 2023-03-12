@@ -1,0 +1,31 @@
+.modalBtnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.general {
+  text-align: center;
+  background-color: #e78766;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  transition: background-color 0.3s linear;
+}
+
+.appointmentlink {
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 20px;
+  color: white;
+}
+
+.appointmenticon {
+  position: absolute;
+  left: -2px;
+  top: 1px;
+}/*# sourceMappingURL=openModalBtn.module.css.map */

@@ -1,16 +1,20 @@
-import React from "react";
-import s from "./OpenModalBtn.module.css";
+import s from "../static/styles/openModalBtn.module.css";
 import { BiCabinet } from "react-icons/bi";
 
 const OpenModalBtn = (props) => {
   return (
-    <div className={s.modalBtnWrapper}>
-      <div className={s.general} style={{ backgroundColor: props.btnbgcolor }}>
+    <div
+      className={s.modalBtnWrapper}
+      onClick={(e) => {
+        e.preventDefault();
+        props.modalAction(true);
+      }}
+    >
+      <div className={s.general}>
         <a
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            props.modalAction(true);
           }}
           className={s.appointmentlink}
         >
@@ -18,7 +22,7 @@ const OpenModalBtn = (props) => {
           <span className={s.appointmenticon}>
             <BiCabinet />
           </span>{" "}
-          <span>
+          <span style={{ fontSize: props.fontSize }}>
             Make an <br /> appointment
           </span>{" "}
         </a>

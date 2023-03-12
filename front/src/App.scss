@@ -1,0 +1,12 @@
+@import "./static/styles/general/colors";
+
+$main_font: "Raleway";
+$secondary_font: "Tantinotes";
+
+body {
+  background-color: $bg_color4;
+  padding: 0px;
+  font-family: $main_font;
+  font-weight: 700;
+  color: rgb(44, 43, 43);
+}

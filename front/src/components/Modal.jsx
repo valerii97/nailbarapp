@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
-import s from "./modal.module.css";
-
+import { useEffect, useState } from "react";
+import s from "../static/styles/modal.module.css";
 import Calendar from "./Calendar";
+import { AiOutlineCaretDown, AiOutlineCloseCircle } from "react-icons/ai";
 
 const Modal = (props) => {
+  // object with validation messages
+  const validation_messages = {
+    service: "Please, chose one of the services.",
+    date: "Please, chose one of the dates.",
+  };
+
   // loading and processing of available dates
   const [availableDates, setAvailableDates] = useState(null);
   const [pickedDate, setPickedDate] = useState(null);
-  const [dateValidationMessage, setDateValidationMessage] = useState(false);
+  const [validationMessage, setValidationMessage] = useState([]);
+  const [dropMenu, setDropMenu] = useState(false);
+  const [chosenServices, setChosenServices] = useState([]);
 
-  const fetchData = async () => {
+  const getAvailableDates = async () => {
     const response = await fetch("/reservations/available");
     const newData = await response.json();
     setAvailableDates(newData);
@@ -17,7 +25,7 @@ const Modal = (props) => {
 
   // loading dates
   useEffect(() => {
-    fetchData();
+    getAvailableDates();
   }, []);
 
   // for phone input
@@ -44,17 +52,46 @@ const Modal = (props) => {
   // on submit of reservation form event
   const submitReservationHandler = async (e) => {
     e.preventDefault();
-    if (pickedDate) {
+    if (pickedDate && chosenServices.length > 0) {
       const data = {
         name: e.target.name.value,
         email: e.target.email.value,
         phone: e.target.phone.value,
+        services: chosenServices.join(";\n "),
         pickedDate: pickedDate,
       };
       await makeReservation(data);
       props.closeModal(false);
+    } else if (chosenServices.length === 0) {
+      if (!validationMessage.includes(validation_messages.service)) {
+        setValidationMessage((oldArr) => [
+          ...oldArr,
+          validation_messages.service,
+        ]);
+      }
     } else {
-      setDateValidationMessage(true);
+      if (!validationMessage.includes(validation_messages.date)) {
+        setValidationMessage((oldArr) => [...oldArr, validation_messages.date]);
+      }
+    }
+  };
+
+  const dropdownBtnHandler = (e) => {
+    e.preventDefault();
+    setDropMenu(!dropMenu);
+  };
+
+  const checkBoxHandler = (e) => {
+    if (e.target.checked) {
+      setChosenServices((oldArray) => [...oldArray, e.target.value]);
+      //disabling validation message for services
+      setValidationMessage((oldArr) =>
+        oldArr.filter((item) => item !== validation_messages.service)
+      );
+    } else {
+      setChosenServices(
+        chosenServices.filter((item) => item !== e.target.value)
+      );
     }
   };
 
@@ -119,20 +156,75 @@ const Modal = (props) => {
                 required
               />
             </div>
+            <div className={s.dropDownMenuDiv}>
+              <span className={s.servicesTitle} onClick={dropdownBtnHandler}>
+                Select service
+                {dropMenu && (
+                  <AiOutlineCloseCircle
+                    className={s.dropBtn}
+                    size={25}
+                    onClick={dropdownBtnHandler}
+                  />
+                )}
+                {!dropMenu && (
+                  <AiOutlineCaretDown
+                    className={s.dropBtn}
+                    size={25}
+                    onClick={dropdownBtnHandler}
+                  />
+                )}
+              </span>
+              <ul
+                className={
+                  dropMenu ? s.services + " " + s.openDropMenu : s.services
+                }
+              >
+                {props.priceLists.map((item, index) => {
+                  return (
+                    <li key={"dropDownMenu" + index}>
+                      <input
+                        type="checkbox"
+                        name="services"
+                        id={"serv" + index}
+                        value={item.title}
+                        onClick={checkBoxHandler}
+                      />
+                      <label htmlFor={"serv" + index}>{item.title}</label>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className={s.chosenServicesDiv}>
+                {chosenServices.length > 0 &&
+                  chosenServices.map((item, index) => {
+                    return (
+                      <span
+                        className={s.checkedServices}
+                        key={"chosenItem" + index}
+                      >
+                        {item}
+                      </span>
+                    );
+                  })}
+              </div>
+            </div>
             <h4>Please, pick date and time: </h4>
             <Calendar
               avDates={availableDates}
               chooseDate={setPickedDate}
-              enableDateValidationMessage={setDateValidationMessage}
+              disableDateValidationMessage={setValidationMessage}
+              valid_messages={validation_messages}
             />
             <div
               className={
-                dateValidationMessage
+                validationMessage.length > 0
                   ? s.validationMessage + " " + s.failed
                   : s.validationMessage
               }
             >
-              Please, pick one of the dates!
+              {validationMessage.map((item, index) => {
+                return <span key={"validation_message" + index}>{item}</span>;
+              })}
             </div>
             <div>
               <input type="submit" value="Let's go!" />

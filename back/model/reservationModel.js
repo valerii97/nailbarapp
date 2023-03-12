@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const avDatesModel = require("./availableDatesModel");
 
 const dataReservations = new mongoose.Schema({
   name: {
@@ -14,9 +13,13 @@ const dataReservations = new mongoose.Schema({
     required: true,
     type: String,
   },
+  services: {
+    required: true,
+    type: String,
+  },
   date: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "validdates",
+    required: true,
+    type: Date,
   },
 });
 

@@ -1,6 +1,5 @@
-import React from "react";
 import { useState } from "react";
-import s from "./modal.module.css";
+import s from "../static/styles/modal.module.css";
 
 const CallbackModal = (props) => {
   const fetchData = async (data) => {
