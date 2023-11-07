@@ -12,7 +12,7 @@
 /build
 
 # misc
-/token.json
+/token.jsongot
 /model/googleapi/client_secret_324541345237-mvfr95anpl1k3ikv28tsi0jrgjnftmej.apps.googleusercontent.com.json
 .DS_Store
 .env
