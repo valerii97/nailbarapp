@@ -1,0 +1,163 @@
+@import "./general/colors";
+@import "./general/fonts";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+// for all Content component
+.general {
+  padding: 0px;
+  position: relative;
+  top: 170px;
+}
+
+.maintitle,
+.secondarytitle {
+  text-align: center;
+  color: $color2;
+}
+
+.maintitle {
+  font-weight: 800;
+  font-size: 77px;
+}
+
+.secondarytitle {
+  font-weight: 500;
+  font-size: 45px;
+}
+
+// Pricelist component
+.pricelistHolder {
+  margin-bottom: 50px;
+}
+
+.pricelistTitle1 {
+  color: $color2;
+  margin: 30px 0px;
+  font-weight: 800;
+  font-size: 67px;
+  text-align: center;
+}
+
+.pricelist {
+  display: block;
+  width: 85%;
+  margin: auto;
+}
+
+.pricelistItem {
+  display: flex;
+  position: relative;
+  border-radius: 30px;
+  margin-bottom: 12px;
+  color: $bg_color3;
+  &.female {
+    background-color: $bg_color2;
+  }
+  &.male {
+    background-color: $bg_color1;
+  }
+  &.other {
+    background-color: $bg_color5;
+  }
+
+  .pricelistItemImgCont {
+    padding: 10px;
+    margin: 30px;
+
+    .pricelistItemImg {
+      width: 177px;
+      height: 235px;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+  }
+
+  .pricelistItemName {
+    text-align: left;
+    font-size: 70px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .pricelistItemDesc {
+    margin-bottom: 50px;
+    font-weight: 500;
+    font-size: 31px;
+    overflow: hidden;
+  }
+
+  .pricelistItemPrice {
+    font-size: 45px;
+    font-weight: 900;
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+  }
+}
+
+// Contacts component
+.contacts {
+  margin-top: 70px;
+  margin-bottom: 100px;
+  text-align: center;
+  h2 {
+    font-size: 67px;
+    font-weight: 800;
+    color: $color2;
+  }
+
+  .map {
+    margin: 25px 0px;
+    text-align: center;
+    a {
+      img {
+        width: 70%;
+      }
+    }
+  }
+
+  .address,
+  .phonenumber {
+    font-size: 22px;
+    font-weight: 800;
+    color: $color2;
+  }
+}
+
+.forModalBtns {
+  text-align: center;
+}
+
+@media screen and (max-width: 782px) {
+  .general {
+    top: 50px;
+  }
+
+  .map a img {
+    width: 90vw;
+  }
+
+  .pricelist {
+    width: 60vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .pricelist {
+    width: 80vw;
+  }
+}

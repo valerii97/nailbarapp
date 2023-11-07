@@ -1,0 +1,133 @@
+.general {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.rateTitle {
+  margin: 50px 0 30px 0;
+  font-size: 67px;
+  font-weight: 800;
+  color: white;
+}
+
+.formHolder {
+  position: relative;
+  width: 80%;
+  border-radius: 40px;
+  margin: auto;
+  background-color: #404c5d;
+  transition: 1s ease-in-out;
+  font-size: 45px;
+  color: white;
+}
+
+/* .formHolder:hover,
+  .formHolder:focus-within{
+      background-color: #d18b3ab0;
+  } */
+.reviewForm {
+  padding: 10px 0;
+  position: relative;
+  z-index: 5;
+}
+
+.gridInputs {
+  margin: 15px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.flexInputs {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.flexInputs label {
+  cursor: pointer;
+}
+
+.reviewForm div input[name=name],
+.reviewForm div input[name=email] {
+  width: 70%;
+  padding: 7px;
+  border-radius: 20px;
+  border: 1px solid gray;
+  margin: auto;
+  font-size: 28px;
+}
+
+.reviewForm div textarea[name=feedback] {
+  width: 70%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 7px;
+  margin: auto;
+  font-size: 28px;
+}
+
+.reviewForm div input[type=submit] {
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  color: #404c5d;
+  font-size: 30px;
+  font-family: "Raleway";
+  font-weight: 800;
+}
+
+.reviewForm div input[type=radio] {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.slideEffect {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  top: -30px;
+  background-color: #a35342;
+  border-radius: 15px;
+  transition: 1s cubic-bezier(0.49, -0.01, 0, 1.58);
+}
+
+.slideEffectActive {
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+@media screen and (min-width: 1006px) {
+  .formHolder {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 782px) {
+  .formHolder {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .formHolder {
+    width: 85%;
+  }
+  .gridInputs {
+    margin: 15px 0;
+    display: block;
+  }
+  .reviewForm div input[name=name],
+  .reviewForm div input[name=email] {
+    height: 22px;
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  .reviewForm div textarea {
+    margin-top: 5px;
+  }
+}/*# sourceMappingURL=review.module.css.map */
