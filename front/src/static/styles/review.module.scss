@@ -1,5 +1,12 @@
 @import "./general/colors";
 @import "./general/fonts";
+@import "./general/responsive";
+
+// font sizes
+$lg_fz: 2.4em;
+$slg_fz: 1.8em;
+$md_fz: 1.2em;
+$sm_fz: 1em;
 
 .general {
   margin: 10px 0;
@@ -8,7 +15,7 @@
 
 .rateTitle {
   margin: 50px 0 30px 0;
-  font-size: 67px;
+  font-size: $lg_fz;
   font-weight: 800;
   color: $color2;
 }
@@ -20,7 +27,7 @@
   margin: auto;
   background-color: $bg_color5;
   transition: 1s ease-in-out;
-  font-size: 45px;
+  font-size: $slg_fz;
   color: $color2;
 }
 
@@ -38,7 +45,10 @@
 .gridInputs {
   margin: 15px 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: max-content 1fr;
+  label{
+    margin: 0 10px 0 15px;
+  }
 }
 
 .flexInputs {
@@ -58,7 +68,7 @@
   border-radius: 20px;
   border: 1px solid gray;
   margin: auto;
-  font-size: 28px;
+  font-size: $sm_fz;
 }
 
 .reviewForm div textarea[name="feedback"] {
@@ -67,7 +77,7 @@
   border-radius: 10px;
   padding: 7px;
   margin: auto;
-  font-size: 28px;
+  font-size: $sm_fz;
 }
 
 .reviewForm div input[type="submit"] {
@@ -78,7 +88,7 @@
   border: none;
   background-color: $color2;
   color: $bg_color5;
-  font-size: 30px;
+  font-size: $sm_fz;
   font-family: $main_font;
   font-weight: 800;
 }
@@ -106,19 +116,16 @@
   top: 0;
 }
 
-@media screen and (min-width: 1006px) {
+@media screen and (max-width: $tblt_w) {
   .formHolder {
     width: 80%;
   }
-}
-
-@media screen and (max-width: 782px) {
-  .formHolder {
-    width: 70%;
+  .gridInputs{
+    grid-template-columns: min-content 1fr;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: $mbl_w) {
   .formHolder {
     width: 85%;
   }
@@ -131,7 +138,7 @@
   .reviewForm div input[name="name"],
   .reviewForm div input[name="email"] {
     height: 22px;
-    font-size: 18px;
+    font-size: $sm_fz;
     margin-top: 5px;
   }
 

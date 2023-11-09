@@ -5,7 +5,7 @@
 
 .rateTitle {
   margin: 50px 0 30px 0;
-  font-size: 67px;
+  font-size: 2.4em;
   font-weight: 800;
   color: white;
 }
@@ -17,7 +17,7 @@
   margin: auto;
   background-color: #404c5d;
   transition: 1s ease-in-out;
-  font-size: 45px;
+  font-size: 1.8em;
   color: white;
 }
 
@@ -34,7 +34,10 @@
 .gridInputs {
   margin: 15px 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: max-content 1fr;
+}
+.gridInputs label {
+  margin: 0 10px 0 15px;
 }
 
 .flexInputs {
@@ -54,7 +57,7 @@
   border-radius: 20px;
   border: 1px solid gray;
   margin: auto;
-  font-size: 28px;
+  font-size: 1em;
 }
 
 .reviewForm div textarea[name=feedback] {
@@ -63,7 +66,7 @@
   border-radius: 10px;
   padding: 7px;
   margin: auto;
-  font-size: 28px;
+  font-size: 1em;
 }
 
 .reviewForm div input[type=submit] {
@@ -75,7 +78,7 @@
   border: none;
   background-color: white;
   color: #404c5d;
-  font-size: 30px;
+  font-size: 1em;
   font-family: "Raleway";
   font-weight: 800;
 }
@@ -103,17 +106,15 @@
   top: 0;
 }
 
-@media screen and (min-width: 1006px) {
+@media screen and (max-width: 985px) {
   .formHolder {
     width: 80%;
   }
-}
-@media screen and (max-width: 782px) {
-  .formHolder {
-    width: 70%;
+  .gridInputs {
+    grid-template-columns: min-content 1fr;
   }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .formHolder {
     width: 85%;
   }
@@ -124,7 +125,7 @@
   .reviewForm div input[name=name],
   .reviewForm div input[name=email] {
     height: 22px;
-    font-size: 18px;
+    font-size: 1em;
     margin-top: 5px;
   }
   .reviewForm div textarea {

@@ -1,5 +1,12 @@
 @import "./general/colors";
 @import "./general/fonts";
+@import "./general/responsive";
+
+// font sizes
+$lg_fz: 2.4em;
+$slg_fz: 1.8em;
+$md_fz: 1.2em;
+$sm_fz: 1em;
 
 h1,
 h2,
@@ -27,12 +34,12 @@ p {
 
 .maintitle {
   font-weight: 800;
-  font-size: 77px;
+  font-size: $lg_fz;
 }
 
 .secondarytitle {
   font-weight: 500;
-  font-size: 45px;
+  font-size: $slg_fz;
 }
 
 // Pricelist component
@@ -44,7 +51,7 @@ p {
   color: $color2;
   margin: 30px 0px;
   font-weight: 800;
-  font-size: 67px;
+  font-size: $lg_fz;
   text-align: center;
 }
 
@@ -52,62 +59,72 @@ p {
   display: block;
   width: 85%;
   margin: auto;
-}
-
-.pricelistItem {
-  display: flex;
-  position: relative;
-  border-radius: 30px;
-  margin-bottom: 12px;
-  color: $bg_color3;
-  &.female {
-    background-color: $bg_color2;
-  }
-  &.male {
-    background-color: $bg_color1;
-  }
-  &.other {
-    background-color: $bg_color5;
-  }
-
-  .pricelistItemImgCont {
-    padding: 10px;
-    margin: 30px;
-
-    .pricelistItemImg {
-      width: 177px;
-      height: 235px;
-      object-fit: cover;
-      border-radius: 30px;
+  .pricelistItem {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: max-content 1fr max-content;
+    grid-template-areas: 
+      "photo title"
+      "photo desc"
+      "photo price"
+      ;
+    position: relative;
+    border-radius: 30px;
+    margin-bottom: 12px;
+    color: $bg_color3;
+    &.female {
+      background-color: $bg_color2;
+    }
+    &.male {
+      background-color: $bg_color1;
+    }
+    &.other {
+      background-color: $bg_color5;
+    }
+  
+    .pricelistItemImgCont {
+      grid-area: photo;
+      padding: 5px;
+      margin: 10px;
+  
+      .pricelistItemImg {
+        width: 177px;
+        height: 235px;
+        object-fit: cover;
+        border-radius: 30px;
+      }
+    }
+  
+    .pricelistItemName {
+      grid-area: title;
+      text-align: center;
+      font-size: $slg_fz;
+      font-weight: 900;
+      margin-bottom: 10px;
+      padding-top: 10px;
+    }
+  
+    .pricelistItemDesc {
+      grid-area: desc;
+      margin-bottom: 50px;
+      font-weight: 500;
+      font-size: $md_fz;
+      overflow: hidden;
+      padding: 2px;
+    }
+  
+    .pricelistItemPrice {
+      grid-area: price;
+      font-size: $md_fz;
+      font-weight: 900;
+      display: block;
+      text-align: right;
+      margin: 0 25px 20px 0;
     }
   }
-
-  .pricelistItemName {
-    text-align: left;
-    font-size: 70px;
-    font-weight: 900;
-    margin-bottom: 10px;
-    padding-top: 10px;
-  }
-
-  .pricelistItemDesc {
-    margin-bottom: 50px;
-    font-weight: 500;
-    font-size: 31px;
-    overflow: hidden;
-  }
-
-  .pricelistItemPrice {
-    font-size: 45px;
-    font-weight: 900;
-    position: absolute;
-    bottom: 20px;
-    right: 30px;
-    display: flex;
-    text-align: left;
-    align-items: center;
-  }
 }
+
+
 
 // Contacts component
 .contacts {
@@ -115,7 +132,7 @@ p {
   margin-bottom: 100px;
   text-align: center;
   h2 {
-    font-size: 67px;
+    font-size: $lg_fz;
     font-weight: 800;
     color: $color2;
   }
@@ -132,7 +149,7 @@ p {
 
   .address,
   .phonenumber {
-    font-size: 22px;
+    font-size: $sm_fz;
     font-weight: 800;
     color: $color2;
   }
@@ -142,7 +159,7 @@ p {
   text-align: center;
 }
 
-@media screen and (max-width: 782px) {
+@media screen and (max-width: $tblt_w) {
   .general {
     top: 50px;
   }
@@ -152,12 +169,63 @@ p {
   }
 
   .pricelist {
-    width: 60vw;
+    width: 70vw;
+    .pricelistItem{
+      .pricelistItemImgCont {
+        padding: 10px;
+        margin: 0px;
+    
+        .pricelistItemImg {
+          width: 150px;
+          height: 220px;
+          object-fit: cover;
+          border-radius: 20px;
+        }
+      }
+  }
+    
+  }
+
+  .pricelistItemName{
+    font-size: $slg_fz;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: $mbl_w) {
+
   .pricelist {
-    width: 80vw;
+    width: 85vw;
+    .pricelistItem {
+      grid-template-areas: 
+      "title title"
+      "photo desc"
+      "photo price"
+      ;
+
+      .pricelistItemImgCont {
+        padding: 10px;
+        margin-right: 10px;
+    
+        .pricelistItemImg {
+          width: 120px;
+          height: 180px;
+          object-fit: cover;
+          border-radius: 20px;
+        }
+      }
+    
+      .pricelistItemName{
+        text-align: center;
+        padding-top: 10px;
+        padding-left: 5px;
+      }
+    
+      .pricelistItemDesc {
+        margin-top: 15px;
+        
+      }
+    
+    }
   }
+  
 }

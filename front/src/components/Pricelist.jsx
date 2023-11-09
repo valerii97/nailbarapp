@@ -37,14 +37,14 @@ const Pricelist = (props) => {
                 alt={pricelistItem.image}
               />
             </div>
-            <div>
+            
               <h3 className={s.pricelistItemName}>{pricelistItem.title}</h3>
               <p className={s.pricelistItemDesc}>{pricelistItem.description}</p>
               <span className={s.pricelistItemPrice}>
                 {"CAN " + pricelistItem.price}
                 {pricelistItem.additional && "/nail"}
               </span>
-            </div>
+            
           </div>
         ))}
       </div>

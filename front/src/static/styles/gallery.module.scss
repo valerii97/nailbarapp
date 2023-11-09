@@ -1,11 +1,18 @@
 @import "./general/colors";
 @import "./general/fonts";
+@import "./general/responsive";
+
+// font sizes
+$lg_fz: 3em;
+$slg_fz: 1.8em;
+$md_fz: 1.2em;
+$sm_fz: 1em;
 
 .gallery {
   margin: 60px 0px;
   text-align: center;
   h2 {
-    font-size: 67px;
+    font-size: $lg_fz;
     font-weight: 800;
     color: $color2;
   }
@@ -16,27 +23,25 @@
   margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-}
-
-.imagediv {
-  padding: 15px;
-  opacity: 1;
-  transform: scale(0.9);
-  transition: opacity 1s ease-in-out, transform 1.2s ease-in-out;
-  &.hiddenimagediv {
-    visibility: hidden;
-    opacity: 0.1;
-    transform: scale(0.3);
-    position: absolute;
+  .imagediv {
+    padding: 15px;
+    opacity: 1;
+    transform: scale(0.9);
+    transition: opacity 1s ease-in-out, transform 1.2s ease-in-out;
+    &.hiddenimagediv {
+      visibility: hidden;
+      opacity: 0.1;
+      transform: scale(0.3);
+      position: absolute;
+    }
+    .image {
+      box-shadow: 1em 0.5em 1em $bg_color5;
+      border-radius: 1rem;
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+    }
   }
-}
-
-.image {
-  box-shadow: 1em 0.5em 1em $bg_color5;
-  border-radius: 1rem;
-  width: 300px;
-  height: 400px;
-  object-fit: cover;
 }
 
 .galleryBtnsHolder {
@@ -57,22 +62,32 @@
   right: 30px;
 }
 
-@media screen and (min-width: 1006px) {
-  .photos {
-    width: 1000px;
-  }
-}
+// @media screen and (min-width: 1006px) {
+//   .photos {
+//     width: 1000px;
+//   }
+// }
 
-@media screen and (max-width: 1005px) {
+@media screen and (max-width: $tblt_w) {
   .photos {
-    width: 700px;
+    width: 85vw;
     grid-template-columns: repeat(2, 1fr);
+    .imagediv{
+      .image{
+        width: 275px;
+        height: 375px;
+      }
   }
 }
-
-@media screen and (max-width: 730px) {
+}
+@media screen and (max-width: $mbl_w) {
   .photos {
-    width: auto;
     grid-template-columns: repeat(1, 1fr);
+    .imagediv{
+      .image{
+        width: 250px;
+        height: 350px;
+      }
+    }
   }
 }

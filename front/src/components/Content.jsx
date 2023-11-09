@@ -13,9 +13,9 @@ const Content = (props) => {
         <p>Here you're gonna do the best nails in BC!</p>
       </h2>
       <Pricelist getPriceList={props.getPriceList} />
-      <OpenModalBtn modalAction={props.modalAction} fontSize={25} />
+      <OpenModalBtn modalAction={props.modalAction} fontSize={"1.2em"} />
       <Gallery />
-      <OpenModalBtn modalAction={props.modalAction} fontSize={25} />
+      <OpenModalBtn modalAction={props.modalAction} fontSize={"1.2em"} />
       <Review />
       <Contacts />
     </main>
